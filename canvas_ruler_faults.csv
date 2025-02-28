@@ -1,0 +1,29 @@
+Fault #,Fault Description,Fault Type,Fault Injection Code
+1,Ruler does not load after canvas initialization,Rendering,const ctx = canvas.getContext('2d'); if (!ctx) { throw new Error('Canvas context initialization failed'); }
+2,Background image fails to render on the canvas,Rendering,"if (!backgroundImage.complete) { alert('Background image failed to load'); } else { ctx.drawImage(backgroundImage, 0, 0); }"
+3,Ruler is off-center on canvas,Layout,"ctx.translate(-100, 0);"
+4,Ruler does not respond to drag event,Functional,"canvas.removeEventListener('mousemove', moveRuler);"
+5,Ruler is unable to rotate correctly,Functional,ctx.rotate(45);
+6,Canvas size is too small to accommodate ruler,Layout,canvas.width = 100; canvas.height = 50;
+7,"Invalid unit choice on the ruler (e.g., cm instead of inches)",Data Handling,unit = 'inches'; if (unit === 'cm') { unit = 'inches';
+8,Ruler disappears when moving over a certain threshold,Functional,if (mouseX > 800) { rulerVisible = false; }
+9,Ruler position resets after every interaction,Functional,rulerX = 0; rulerY = 0;
+10,Rotation causes ruler to be misaligned,UI Interaction,ctx.rotate(Math.PI / 2);
+11,User unable to select a new image after the first one is uploaded,Functional,backgroundImage.disabled = true;
+12,Canvas redraws with no visible ruler or image,Functional,"ctx.clearRect(0, 0, canvas.width, canvas.height);"
+13,Ruler image distortion when rotated,Rendering,"ctx.rotate(45); ctx.drawImage(rulerImage, 0, 0);"
+14,Multiple click events while dragging causes errors,Functional,"canvas.addEventListener('click', function() { alert('Multiple click issue'); });"
+15,Canvas does not clear previous ruler after new upload,Rendering,"ctx.clearRect(0, 0, canvas.width, canvas.height);"
+16,Ruler jumps to an incorrect position after image upload,Functional,rulerX = Math.random() * 1000; rulerY = Math.random() * 1000;
+17,Ruler alignment changes after rotating,Functional,"ctx.rotate(45); ctx.translate(10, 10);"
+18,Canvas resizing causes ruler distortion,Layout,canvas.width = 400; canvas.height = 300;
+19,Image upload exceeds file size limit,Functional,if (imageFile.size > 5000000) { alert('File too large'); return; }
+20,Ruler loses precision after scaling,Data Handling,const scale = 100;
+21,Ruler appears at incorrect angle due to canvas scaling,Rendering,"ctx.rotate(45); ctx.scale(2, 2);"
+22,Canvas becomes unresponsive when large image is uploaded,Layout,if (image.width > 5000) { alert('Image too large'); return; }
+23,Buttons for moving or rotating the ruler stop working,Performance,document.querySelector('.move-button').disabled = true;
+24,Ruler disappears when user changes background image,Functional,backgroundImage.onload = function() { rulerVisible = false; }
+25,Rotation freezes when changing angles too quickly,Functional,ctx.rotate(45); ctx.rotate(90);
+26,Image does not update after selecting a new background,UI Layout,backgroundImage.src = '';
+27,User cannot download image after adding the ruler,UI Layout,document.querySelector('.download-button').disabled = true;
+28,"Interactive ruler tools (rotate, move) are blocked by overlapping UI elements",Functional,canvas.style.zIndex = -1;

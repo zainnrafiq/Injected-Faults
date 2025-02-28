@@ -1,0 +1,46 @@
+Fault ID,Fault Description,Fault Type,Fault Injection Code
+1,Zoom control buttons unresponsive,UI Fault,document.querySelector('#zoom-in-button').style.pointerEvents = 'none';
+2,Markers fail to display correctly,UI Fault,"google.maps.event.addListener(marker, 'click', function() {marker.setVisible(false);});"
+3,Marker pop-up does not show information,UI Fault,"google.maps.event.addListener(marker, 'click', function() {google.maps.event.removeListener(marker, 'click');});"
+4,CSS misalignment of map controls,UI Fault,document.querySelector('#zoom-in-button').style.zIndex = '-1'; document.querySelector('#zoom-out-button').style.zIndex = '-1';
+5,Geolocation API fails to return user location,Functional Fault,"navigator.geolocation.getCurrentPosition = function(success, error) { error('Timeout error'); };"
+6,Places API returns no results for nearby search,Functional Fault,google.maps.places.PlacesService.prototype.nearbySearch = function() { return []; };
+7,Tiles fail to load due to network timeout,Network Fault,fetch('/path/to/map/tile').then(response => { throw new Error('Network Timeout'); });
+8,Map fails to re-render after zooming,UI Fault,"google.maps.event.removeListener(map, 'zoom_changed');"
+9,Inconsistent map controls visibility,UI Fault,document.querySelector('#map-controls').style.display = 'none';
+10,Incorrect styling of map markers,UI Fault,marker.setLabel('Invalid Data'); marker.setIcon('missing-icon.png');
+11,API call to Directions service fails,Functional Fault,google.maps.DirectionsService.prototype.route = function() { throw new Error('Directions API Failed'); };
+12,Unable to generate route between two locations,Functional Fault,google.maps.DirectionsService.prototype.route = function() { return { status: 'ZERO_RESULTS' }; };
+13,Markers disappear after panning,Functional Fault,"google.maps.event.addListener(map, 'center_changed', function() {marker.setMap(null);});"
+14,Street view not loading on click,UI Fault,"google.maps.event.addListener(map, 'click', function(event) {map.getStreetView().setVisible(false);});"
+15,Search bar does not return location results,UI Fault,"google.maps.places.AutocompleteService.prototype.getPlacePredictions = function(request, callback) {callback([]); };"
+16,Map fails to load after page refresh,Functional Fault,google.maps.Map = function() { throw new Error('Map failed to load'); };
+17,Zooming causes map to misrender,UI Fault,"google.maps.event.addListener(map, 'zoom_changed', function() {map.setOptions({ zoomControl: false });});"
+18,Network issues lead to incomplete map data,Network Fault,"google.maps.event.addListener(map, 'tilesloaded', function() {let tiles = document.querySelectorAll('.gm-style-cc'); tiles.forEach(tile => tile.style.display = 'none');});"
+19,Search bar causes map freeze,Functional Fault,"google.maps.event.addListener(map, 'idle', function() {map.setOptions({ disableDefaultUI: true });});"
+20,Error in calculating distances between locations,Functional Fault,google.maps.DirectionsService.prototype.route = function() { throw new Error('Timeout Error'); };
+21,Pop-up windows show incorrect details,UI Fault,document.querySelector('#search-results').innerHTML = 'Invalid Search Results';
+22,Markers are not interactive,UI Fault,document.querySelector('#map').style.pointerEvents = 'none';
+23,Custom controls fail to function,UI Fault,document.querySelector('#search-bar').dispatchEvent(new Event('change'));
+24,Zoom controls overlap with other UI elements,UI Fault,document.querySelector('#zoom-in-button').style.position = 'absolute'; document.querySelector('#zoom-out-button').style.position = 'absolute'; document.querySelector('#zoom-in-button').style.top = '10px'; document.querySelector('#zoom-out-button').style.top = '10px';
+25,Map data appears blurry after zooming,UI Fault,document.querySelector('#map').style.filter = 'blur(5px)';
+26,Clicking markers causes delay in map response,Functional Fault,"google.maps.event.addListener(map, 'click', function(event) { console.log(event.latLng); });"
+27,Map becomes unresponsive during heavy user interaction,UI Fault,"let isUserInteracting = false;google.maps.event.addListener(map, 'zoom_changed', function() {if (isUserInteracting) {map.setOptions({ draggable: false });}});"
+28,Network error causes markers to be delayed,UI Fault,"setTimeout(() => {marker.setMap(null);}, 3000);"
+29,Location search produces inaccurate results,Network Fault,"google.maps.places.PlacesService.prototype.getDetails = function() { return { name: 'Error Place', location: 'unknown' }; };"
+30,Map rendering delays on slow network connections,Network Fault,"setTimeout(() => {map.setCenter(new google.maps.LatLng(0, 0));google.maps.event.trigger(map, 'idle');}, 5000);"
+31,Missing or broken images in Street View,Functional Fault,document.querySelector('.street-view-image').style.display = 'none';
+32,Page layout breaks during location search,UI Fault,document.querySelector('#map').style.position = 'absolute'; document.querySelector('#search-bar').style.display = 'none';
+33,Directions API throws timeout error,UI Fault,"google.maps.DirectionsService.prototype.route = function(request, callback, errorCallback) {setTimeout(() => {errorCallback({ message: 'Timeout', status: 'OVER_QUERY_LIMIT' });}, 5000);};"
+34,Unable to calculate walking route,UI Fault,"google.maps.DirectionsService.prototype.route = function(request, callback, errorCallback) {errorCallback({ message: 'Unable to calculate walking route', status: 'NOT_FOUND' });};"
+35,Map fails to load custom layers,UI Fault,"google.maps.ImageMapType.prototype.getTile = function(coord, zoom) {throw new Error('Failed to load custom layer');};"
+36,Markers fail to update on zoom change,Network Fault,"google.maps.event.addListener(map, 'zoom_changed', function() {marker.setMap(null);});"
+37,Route calculation fails due to API issue,Network Fault,google.maps.DirectionsService.prototype.route = function() { throw new Error('Route Calculation Failed'); };
+38,Markers not updated after location search,Functional Fault,"google.maps.event.addListener(map, 'bounds_changed', function() {marker.setMap(null);});"
+39,Place details not loading properly,Functional Fault,"google.maps.places.PlacesService.prototype.getDetails = function(request, callback, errorCallback) {errorCallback({ message: 'Failed to load place details' });};"
+40,Geolocation not updating after page reload,Functional Fault,"navigator.geolocation.getCurrentPosition = function(success, error) {error({ message: 'Geolocation error', code: 1 });};"
+41,Error handling for user input is missing,Network Fault,"google.maps.event.addListener(map, 'click', function() {throw new Error('User input error');});"
+42,Markers fail to load after page refresh,UI Fault,if (window.performance && performance.navigation.type == 1) {marker.setMap(null);}
+43,Street View freezes or does not load properly,Functional Fault,map.getStreetView().setVisible(false);
+44,Custom styling of markers does not apply,UI Fault,marker.setIcon(null); marker.setLabel('');
+45,Map fails to center after user input,Functional Fault,"google.maps.event.addListener(map, 'center_changed', function() {map.setCenter(new google.maps.LatLng(0, 0));});"
